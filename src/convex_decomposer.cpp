@@ -240,18 +240,6 @@ int main(int argc, char** argv)
         centroid *= 1.f/(float(nPoints));
       }
 
-      btAlignedObjectArray<btVector3> vertices;
-      {
-        //const unsigned int *src = result.mHullIndices;
-        for (unsigned int i = 0; i < nPoints; i++)
-        {
-          btVector3 vertex(vertices[i*3]);
-          vertex *= localScaling;
-          vertex -= centroid ;
-          vertices.push_back(vertex);
-        }
-      }
-
       {
         const unsigned int *src = triangles;
         for (unsigned int i = 0; i < nTriangles; i++)
@@ -260,9 +248,9 @@ int main(int argc, char** argv)
           unsigned int index1 = *src++;
           unsigned int index2 = *src++;
 
-          btVector3 vertex0(vertices[index0*3]);
-          btVector3 vertex1(vertices[index1*3]);
-          btVector3 vertex2(vertices[index2*3]);
+          btVector3 vertex0(vertices[index0*3], vertices[index0*3+1], vertices[index0*3+2]);
+          btVector3 vertex1(vertices[index1*3], vertices[index1*3+1], vertices[index1*3+2]);
+          btVector3 vertex2(vertices[index2*3], vertices[index2*3+1], vertices[index2*3+2]);
 
           vertex0 *= localScaling;
           vertex1 *= localScaling;
